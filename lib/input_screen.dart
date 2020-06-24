@@ -2,6 +2,8 @@ import 'package:basicbmicalculatorflutter/card.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'Result.dart';
+import 'calculation.dart';
 import 'constants.dart';
 
 enum Gender { male, female }
@@ -12,6 +14,8 @@ class InputScreen extends StatefulWidget {
 }
 
 class _InputScreenState extends State<InputScreen> {
+  BMICal cal;
+
   Gender gender;
   int height = 170;
   int weight = 60;
@@ -247,7 +251,19 @@ class _InputScreenState extends State<InputScreen> {
 
   _bottombutton() {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        setState(() {
+          cal = BMICal(height: height, weight: weight);
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => Result(
+                cal: cal,
+              ),
+            ),
+          );
+        });
+      },
       child: Container(
         decoration: BoxDecoration(
           color: Colors.red,
